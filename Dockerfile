@@ -17,6 +17,5 @@ github \
 github-branch-source \
 "
 
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
-
-COPY ./jenkins_configs/casc.yaml /var/jenkins_home/casc.yaml
+COPY jenkins_home/custom_config.xml /var/jenkins_home/config.xml
+COPY scripts/init.groovy.d /usr/share/jenkins/ref/init.groovy.d/
