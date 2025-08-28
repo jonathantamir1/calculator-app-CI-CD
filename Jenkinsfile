@@ -15,6 +15,12 @@ pipeline {
             }
         }
 
+		stage('Build & Test') {
+		  steps {
+			sh ''
+		  }
+		}
+
         stage('Build and Push Docker Image') {
             steps {
                 script {
