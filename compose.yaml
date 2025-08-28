@@ -1,34 +1,25 @@
-version: '3.8'
-
+version: "3.8"
 services:
   jenkins:
     build: ./jenkins
-    container_name: jenkins-server
+    container_name: jenkins
     ports:
       - "8080:8080"
       - "50000:50000"
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - CASC_JENKINS_CONFIG=/usr/share/jenkins/ref/casc.yaml
     volumes:
       - jenkins_home:/var/jenkins_home
-    networks:
-      - jenkins-network
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
 
-  jenkins-agent:
-    image: jenkins/inbound-agent
-    container_name: jenkins-agent
-    environment:
-      - JENKINS_URL=http://jenkins-server:8080
-      - JENKINS_AGENT_NAME=agent
-      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
-    volumes:
-      - agent_workdir:/home/jenkins/agent
-    depends_on:
-      - jenkins
-    networks:
-      - jenkins-network
+  registry:
+    image: registry:2
+    container_name: local-registry
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
 
 volumes:
   jenkins_home:
-  agent_workdir:
-
-networks:
-  jenkins-network:
