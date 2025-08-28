@@ -1,0 +1,9 @@
+blueocean docker-workflow
+matrix-auth
+authorize-project
+configuration-as-code
+git
+workflow-multibranch
+telegram-notifications
+github
+github-branch-source
